@@ -40,12 +40,12 @@ EOS
       def self.post_data(sql_post_data)
         content = sql_post_data[:body].to_s
         summary = sql_post_data[:teaser].to_s
-        tags = (sql_post_data[:tags] || "").downcase.strip
+        tags = (sql_post_data[:tags] || "").strip
         permalink = '/' + sql_post_data[:dst] 
 
         data = {
           "excerpt"    => summary,
-          "categories" => tags.split("|").uniq,
+          "tags" => tags.split("|").uniq,
           "permalink"  => permalink 
         }
 
