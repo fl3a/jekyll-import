@@ -46,6 +46,7 @@ EOS
         data = {
           "excerpt"    => summary,
           "tags" => tags.split("|").uniq,
+          "nid" => sql_post_data[:nid],
           "permalink"  => permalink 
         }
 
