@@ -120,7 +120,7 @@ module JekyllImport
               f.puts content
             end
 
-            # 301 redirects from node/nid to filename w/o .md
+            # File with 301 redirects from node/nid to Y/m/d/slug
             File.open("_htaccess_node_nid", "a") do |f|
               f.puts "Redirect 301 /node/#{node_id} /#{path}"
             end
