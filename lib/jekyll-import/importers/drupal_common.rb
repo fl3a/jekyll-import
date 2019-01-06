@@ -111,12 +111,18 @@ module JekyllImport
             dir = is_published ? dirs[:_posts] : dirs[:_drafts]
             slug = title.strip.downcase.gsub(%r!(&|&amp;)!, " and ").gsub(%r![\s\.\/\\]!, "-").gsub(%r![^\w-]!, "").gsub(%r![-_]{2,}!, "-").gsub(%r!^[-_]!, "").gsub(%r![-_]$!, "")
             filename = Time.at(time).to_datetime.strftime("%Y-%m-%d-") + slug + ".md"
+            path = Time.at(time).to_datetime.strftime("%Y/%m/%d/") + slug
 
             # Write out the data and content to file
             File.open("#{dir}/#{filename}", "w") do |f|
               f.puts data.to_yaml
               f.puts "---"
               f.puts content
+            end
+
+            # File with 301 redirects from node/nid to Y/m/d/slug
+            File.open("_htaccess_node_nid", "a") do |f|
+              f.puts "Redirect 301 /node/#{node_id} /#{path}"
             end
 
             # Make a file to redirect from the old Drupal URL
